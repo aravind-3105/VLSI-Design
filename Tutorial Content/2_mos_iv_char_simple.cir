@@ -1,0 +1,41 @@
+Netlist to evaluate MOS I-V characterisitics
+
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param VGG=1.5
+.param LAMBDA=0.09u
+.param width_N={20*LAMBDA}
+.global gnd vdd
+
+VGS	G	gnd 'VGG'
+*VGS	G	gnd 'SUPPLY'
+VDS D   gnd 0.05V 
+***** FOR MOS TO BE IN LINEAR REGION FOR VT EXTRACTION
+*VDS D   gnd 1.8V 
+
+*** Three nMOS transistors for simulations with different body bias to have different Vt 
+M1      D       G       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+** ID-VGS for given VDS 
+.dc VGS 0 1.8 0.025
+
+** ID-VDS for given VGS 
+*.dc VDS 0 1.8 0.025
+
+** ID-VDS for different VGS 
+*.dc VDS 0 1.8 0.05 VGS 0 1.8 0.3
+
+.control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+
+run
+
+let x = (-VDS#branch)
+set curplottitle="id vs vgs"
+plot x 
+
+hardcopy fig_mos_id_vgs.eps (-VDS#branch)
+.endc

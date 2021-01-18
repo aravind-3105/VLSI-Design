@@ -1,0 +1,28 @@
+VLSI Assignment Question 2b
+* Answers to question 2b
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.18u
+.param width_N={20*LAMBDA}
+.global gnd vdd
+
+VGS G gnd ‘SUPPLY’
+VDS D gnd 1.8
+
+M1 D G gnd gnd CMOSN W={width_N} L={2*LAMBDA} 
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD={5*width_N*LAMBDA}
+
+.dc VGS 0 1.8 0.1
+
+
+.control
+
+run
+let x = (-VDS#branch)
+set curplottitle="Id vs Vgs Characteristics"
+plot x 
+
+hardcopy fig_Q2b.eps (-VDS#branch)
+.endc
+
