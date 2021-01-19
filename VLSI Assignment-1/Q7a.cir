@@ -1,0 +1,49 @@
+VLSI Assignment Question 7a
+* Answers to question 7a
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.18u
+.param W_N = 1.8u
+.param width_N={W_N}
+.param width_P={2.5*W_N}
+.global gnd vdd
+
+VIN A gnd pulse 0 1.8 0ns 100ps 100ps 9.9ns 20ns
+
+
+
+*Top-Left
+M1 B A vdd vdd CMOSP W={width_P} L={LAMBDA} 
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD={5*width_N*LAMBDA}
+* Bottom-Left
+M2 B A gnd gnd CMOSN W={width_N} L={LAMBDA} 
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD={5*width_N*LAMBDA}
+* Top-Right
+M3 C B vdd vdd CMOSP W={width_P} L={LAMBDA} 
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD={5*width_N*LAMBDA}
+* Bottom-Right
+M4 C B gnd gnd CMOSN W={width_N} L={LAMBDA} 
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD={5*width_N*LAMBDA}
+*Capacitor
+Cout C gnd 100f
+
+
+
+
+.control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+
+run
+set curplottitle="Vout vs Time"
+plot v(C) 
+
+hardcopy fig_Q7a.eps v(C)
+.endc
+
+
