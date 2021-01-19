@@ -21,6 +21,9 @@ M2 D2 G gnd gnd CMOSN W={width_N} L={LAMBDA}
 
 
 .control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
 
 run
 let x = (-VDS#branch)
