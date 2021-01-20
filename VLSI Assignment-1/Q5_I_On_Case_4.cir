@@ -1,0 +1,28 @@
+VLSI Assignment Question 5 for I_On
+* Answers to question 5 I_On Calculation
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param width_N={20*LAMBDA}
+.global gnd vdd
+
+VGS G gnd 1.8V
+VDS D gnd 0V
+
+M1 D G gnd gnd CMOSN W={20*width_N} L={2*LAMBDA} 
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+.dc VDS 0 1.8 0.01
+
+
+.control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+
+run
+plot -VDS#branch
+set hcopypscolor = 1 *White background
+hardcopy fig_Q5_IIII_On.eps -VDS#branch
+.endc
