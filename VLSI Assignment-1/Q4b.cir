@@ -27,5 +27,5 @@ let x = (-VDS#branch)
 set curplottitle="Id vs Vds Characteristics"
 plot x 
 
-hardcopy fig_Q4a.eps (-VDS#branch)
+hardcopy fig_Q4b.eps (-VDS#branch)
 .endc
