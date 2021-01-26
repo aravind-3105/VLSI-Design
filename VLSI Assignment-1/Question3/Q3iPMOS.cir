@@ -2,7 +2,7 @@ VLSI Assignment Question 3i
 * Answers to question 3i
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
-.param LAMBDA=0.18u
+.param LAMBDA=0.09u
 .param width_N={20*LAMBDA}
 .global gnd vdd
 

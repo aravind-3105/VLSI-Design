@@ -2,11 +2,11 @@ VLSI Assignment Question 3ii
 * Answers to question 3ii
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
-.param LAMBDA=0.18u
+.param LAMBDA=0.09u
 .param width_N={20*LAMBDA}
 .global gnd vdd
 
-VGS G gnd ‘SUPPLY’
+VGS G gnd 0
 VDS D gnd 1.8V
 VBS B gnd 0.9V
 

@@ -6,7 +6,7 @@ VLSI Assignment Question 5 for I_Off
 .param width_N={20*LAMBDA}
 .global gnd vdd
 
-VGS G gnd 1.8V
+vin G gnd pulse 0 5 0ns 100ns 100ns 10us 20us
 VDS D gnd 0V
 
 M1 D G gnd gnd CMOSN W={width_N} L={2*LAMBDA} 
@@ -14,7 +14,7 @@ M1 D G gnd gnd CMOSN W={width_N} L={2*LAMBDA}
 + AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
 
-VGS 1.8 0 pulse 0 5 0ns 100ns 100ns 10us 20us
+
 
 .dc VDS 0 1.8 0.01
 
@@ -29,3 +29,8 @@ plot -v(VDS)#branch
 set hcopypscolor = 1 *White background
 hardcopy fig_Q5_I_Off.eps -v(VDS)#branch
 .endc
+
+
+PULSE(V1 V2 TD TR TF PW PER PHASE)
+Examples:
+VIN 3 0 PULSE(1 0 0NS 1NS 1NS 1 20)

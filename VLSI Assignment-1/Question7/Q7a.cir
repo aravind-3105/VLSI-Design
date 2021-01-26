@@ -4,46 +4,52 @@ VLSI Assignment Question 7a
 .param SUPPLY=1.8
 .param LAMBDA=0.18u
 .param W_N = 1.8u
-.param width_N={W_N}
-.param width_P={2.5*W_N}
+.param width_P=20*LAMBDA
+.param width_N=10*LAMBDA
 .global gnd vdd
 
-VIN A gnd pulse 0 1.8 0ns 100ps 100ps 9.9ns 20ns
+Vdd	 vdd gnd 'SUPPLY'
+* Vin	 a	 gnd	0V
+vin a 0 pulse 0 1.8 0ns 1ns 1ns 10ns 20ns
 
+M1  b  a  vdd  vdd  CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} 
++AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
+M2  b  a  gnd   gnd     CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} 
++AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
-*Top-Left
-M1 B A vdd vdd CMOSP W={width_P} L={LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
-* Bottom-Left
-M2 B A gnd gnd CMOSN W={width_N} L={LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
-* Top-Right
-M3 C B vdd vdd CMOSP W={width_P} L={LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
-* Bottom-Right
-M4 C B gnd gnd CMOSN W={width_N} L={LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
-*Capacitor
-Cout C gnd 100f
+M3  b  c  vdd   vdd     CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} 
++AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
+M4  b  c  gnd   gnd    CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} 
++AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
+Cout c gnd 100f
 
+.tran 0.1n 200n
 
 .control
-set hcopypscolor = 1 *White background for saving plots
-set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
-set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
-
 run
-set curplottitle="Vout vs Time"
-plot v(C) 
+*plot v(a)
+*plot v(b)
+plot  v(c) v(a)
 
-hardcopy fig_Q7a.eps v(C)
+hardcopy fig_inv_trans.eps v(a) v(c)
 .endc
+
+
+
+
+
+
+
+
+
+
+
 
 
