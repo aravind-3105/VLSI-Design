@@ -1,4 +1,3 @@
-
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
 .param LAMBDA=0.09u
@@ -7,17 +6,28 @@
 Vdd	vdd	gnd	'SUPPLY'
 vin a 0 pulse 0 1.8 0ns 1ns 1ns 10ns 20ns
 
-.subckt inv y x vdd gnd
+.subckt inv1 y x vdd gnd
 .param width_P={48*LAMBDA}
 .param width_N={20*LAMBDA}
 M1      y       x       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
 + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 M2      y       x       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
 + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
-.ends inv
+.ends inv1
 
-x1 b a vdd gnd inv
-x2 c b vdd gnd inv
+.subckt inv2 z y vdd gnd
+.param width_P={48*LAMBDA}
+.param width_N={20*LAMBDA}
+M3      z       y       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M4      z       y       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+.ends inv2
+
+Cout b gnd 100f
+
+x1 b a vdd gnd inv1
+x2 c b vdd gnd inv2
 
 *.dc vin 0 1.8 0.1
 .tran 0.1n 200n

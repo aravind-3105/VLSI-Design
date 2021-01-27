@@ -3,34 +3,43 @@ VLSI Assignment Question 7b
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
 .param LAMBDA=0.18u
-.param W_N = 1.8u
-.param width_N={W_N}
-.param width_P={2.5*W_N}
+.param width_N=10*LAMBDA
+.param width_P=2.5*width_N
 .global gnd vdd
 
-VIN A gnd pulse 0 1.8 0ns 100ps 100ps 9.9ns 20ns
+Vdd	 vdd gnd 'SUPPLY'
+vin x 0 pulse 0 1.8 0ns 100ps 100ps 9.9ns 20ns
 
+M1      y       x       gnd     gnd  CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
-*Top-Left
-M1 B A vdd vdd CMOSP W={width_P} L={LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
-* Bottom-Left
-M2 B A gnd gnd CMOSN W={width_N} L={LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
-* Top-Right
-M3 C B vdd vdd CMOSP W={width_P} L={LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
-* Bottom-Right
-M4 C B gnd gnd CMOSN W={width_N} L={LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
-*Capacitor
-Cout C gnd 500f
+M2      y       x       vdd     vdd  CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 
+M3      z       y       gnd     gnd  CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
+M4      z       y       vdd     vdd  CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+Cout z gnd 500f
+
+.tran 0.1n 200n
+
+** MEASURING DELAYS (Refer manual section 15.4.5)
+.measure tran tperiod
++ TRIG v(y) VAL='SUPPLY/2' RISE=1
++ TARG v(y) VAL='SUPPLY/2' RISE=2
+.measure tran tpdr
++ TRIG v(y) VAL='SUPPLY/2' FALL=1
++ TARG v(z) VAL='SUPPLY/2' RISE=1
+
+.measure tran tpdf
++ TRIG v(y) VAL='SUPPLY/2' RISE=1
++ TARG v(z) VAL='SUPPLY/2' FALL=1
+
+.measure tran tpd param='(tpdr+tpdf)/2' goal=0
+.measure tran diff param='tpdr-tpdf' goal=0
 
 
 .control
@@ -38,11 +47,14 @@ set hcopypscolor = 1 *White background for saving plots
 set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
 set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
 
-run
-set curplottitle="Vout vs Time"
-plot v(C) 
 
-hardcopy fig_Q7b.eps v(C)
+run
+*plot v(a)
+*plot v(b)
+plot  v(x) v(z)
+
+hardcopy fig_Q7b.eps v(x) v(z)
 .endc
+
 
 
