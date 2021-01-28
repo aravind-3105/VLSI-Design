@@ -24,7 +24,7 @@ M4      z       y       vdd     vdd  CMOSP   W={width_P}   L={LAMBDA}
 
 Cout z gnd 100f
 
-.tran 0.1n 200n
+.tran 0.1n 60n
 
 ** MEASURING DELAYS (Refer manual section 15.4.5)
 .measure tran tperiod

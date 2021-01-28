@@ -24,8 +24,18 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 
 run
 let x = (-VDS#branch)
+let y = sqrt(-VDS#branch)
+let z = deriv(sqrt(-VDS#branch))
+let zz = deriv(sqrt(-VDS#branch))/deriv(V(G))
+
 set curplottitle="Id vs Vgs Characteristics"
 plot x 
+
+set curplottitle="deriv(Id) vs Vgs Characteristics"
+plot y
+
+set curplottitle="Id vs Vgs Characteristics"
+plot z
 
 hardcopy fig_Q3iNMOS.eps (-VDS#branch)
 .endc

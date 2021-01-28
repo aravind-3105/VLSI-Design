@@ -1,22 +1,22 @@
-VLSI Assignment Question 7a
-* Answers to question 7a
+VLSI Assignment Question 6a
+* Answers to question 6a
 .include TSMC_180nm.txt
-.param SUPPLY=1.8
+.param SUPPLY=2.5
 .param LAMBDA=0.18u
 .param width_N=10*LAMBDA
 .global gnd vdd
 
 Vdd	 vdd gnd 'SUPPLY'
-vin x 0 pulse 1.8 1.8 0ns 0 0 2ns 2ns
+vin x 0 pulse 0 1.8 0ns 10ns 10ns 6000ns 600ns
 
-M1      vdd       x       z     gnd  CMOSN   W={width_N}   L={LAMBDA}
+M1      x       vdd       z     gnd  CMOSN   W={width_N}   L={LAMBDA}
 + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
 
 Cout z gnd 100f
 
 .ic v(z)= 0 
-.tran 0.001n 20n
+.tran 0.1n 600n
 
 
 

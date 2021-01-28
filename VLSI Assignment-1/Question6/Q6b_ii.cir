@@ -1,23 +1,22 @@
 VLSI Assignment Question 6aii
 * Answers to question 6a (ii)
 .include TSMC_180nm.txt
-.param SUPPLY=1.8
-.param LAMBDA=0.18u
-.param width_N=10*LAMBDA
+.param SUPPLY=-2.8V
+.param LAMBDA=0.09u
+.param width_P=20*LAMBDA
 .global gnd vdd
 
 Vdd	 vdd gnd 'SUPPLY'
-vin x gnd 0
-* vin x 0 pulse 0 0 0ns 0 0 2ns 2ns
+vin x gnd 0V
 
-M1      x       vdd       z     gnd  CMOSN   W={width_N}   L={LAMBDA}
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-
+M1 z vdd x x CMOSP W={width_P} L={2*LAMBDA} +
+AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P}
+AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 
 Cout z gnd 100f
 
-.ic v(z)= 1.8 
-.tran 0.001n 2n
+.ic v(z)= 1.8
+.tran 0.001n 5n
 
 
 
@@ -32,8 +31,9 @@ run
 *plot v(b)
 plot  v(z)
 
-hardcopy fig_Q6a_ii.eps v(z)
+hardcopy fig_Q6b_ii.eps v(z)
 .endc
+
 
 
 

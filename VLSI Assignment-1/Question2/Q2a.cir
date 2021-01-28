@@ -9,13 +9,15 @@ VLSI Assignment Question 2a
 VGS G gnd 0
 VDS D gnd 50m
 
+*MOSFET Initialisation
 M1 D G gnd gnd CMOSN W={width_N} L={2*LAMBDA} 
 + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
 + AD={5*width_N*LAMBDA}
 
+*DC Sweep
 .dc VGS 0 1.8 0.1
 
-
+* Plots
 .control
 set hcopypscolor = 1 *White background for saving plots
 set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
@@ -23,9 +25,18 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 
 run
 let x = (-VDS#branch)
+let y = deriv(-VDS#branch)/deriv(V(G))
+let z = deriv(deriv(-VDS#branch))/(deriv(V(G))*deriv(V(G)))
+
 set curplottitle="Id vs Vgs Characteristics"
 plot x 
 
-hardcopy fig_Q2a.eps (-VDS#branch)
+set curplottitle="First Derivative Plot"
+plot y
+
+set curplottitle="Second Derivative Plot"
+plot z
+
+hardcopy fig_Q2a.eps x y z
 .endc
 

@@ -1,23 +1,20 @@
-VLSI Assignment Question 5 for I_Off
-* Answers to question 5 I_Off Calculation
+VLSI Assignment Question 5 for I_On
+* Answers to question 5 I_On Calculation
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
 .param LAMBDA=0.09u
-.param width_N={20*LAMBDA}
+.param width_N={200*LAMBDA}
 .global gnd vdd
 
-vin G gnd pulse 0 5 0ns 100ns 100ns 10us 20us
-VDS D gnd 0V
+VGS G gnd 0
+VDS D gnd 'SUPPLY'
 
 M1 D G gnd gnd CMOSN W={width_N} L={2*LAMBDA} 
 + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
 + AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
-
-
-
-.dc VDS 0 1.8 0.01
-
+VGS G 0 pulse 0 1.8 0ns 10ns 10ns 1000ns 2000ns
+.tran 1ns 2000ns
 
 .control
 set hcopypscolor = 1 *White background for saving plots
@@ -25,12 +22,7 @@ set color0=white ** color0 is used to set the background of the plot (manual sec
 set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
 
 run
-plot -v(VDS)#branch
+plot -VDS#branch
 set hcopypscolor = 1 *White background
-hardcopy fig_Q5_I_Off.eps -v(VDS)#branch
+hardcopy fig_Q5_III.eps -VDS#branch
 .endc
-
-
-PULSE(V1 V2 TD TR TF PW PER PHASE)
-Examples:
-VIN 3 0 PULSE(1 0 0NS 1NS 1NS 1 20)

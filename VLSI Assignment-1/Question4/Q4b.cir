@@ -1,7 +1,7 @@
 Series combination of two transistors
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
-.param LAMBDA=0.18u
+.param LAMBDA=0.09u
 .param width_N=20*LAMBDA
 .global gnd vdd
 
@@ -13,7 +13,7 @@ M1 D G gnd gnd CMOSN W={width_N} L={4*LAMBDA}
 + AD={5*width_N*LAMBDA}
 
 
-.dc VDS 0 10 0.1
+.dc VDS 0 3 0.01
 
 
 .control

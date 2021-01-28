@@ -1,21 +1,20 @@
-VLSI Assignment Question 3i
-* Answers to question 3i
+VLSI Assignment Question 5 for I_On
+* Answers to question 5 I_On Calculation
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
 .param LAMBDA=0.09u
 .param width_N={20*LAMBDA}
 .global gnd vdd
 
-VGS G gnd ‘SUPPLY’
-VDS D gnd 1.8V
-VBS B gnd 0V
+VGS G gnd 0
+VDS D gnd 'SUPPLY'
 
-M1 D G gnd B CMOSP W={width_N} L={2*LAMBDA} 
+M1 D G gnd gnd CMOSN W={width_N} L={2*LAMBDA} 
 + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
++ AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
-.dc VGS 0 1.8 0.01
-
+VGS G 0 pulse 0 1.8 0ns 10ns 10ns 1000ns 2000ns
+.tran 1ns 2000ns
 
 .control
 set hcopypscolor = 1 *White background for saving plots
@@ -23,9 +22,7 @@ set color0=white ** color0 is used to set the background of the plot (manual sec
 set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
 
 run
-let x = (-VDS#branch)
-set curplottitle="Id vs Vgs Characteristics"
-plot x 
-
-hardcopy fig_Q3iPMOS.eps (-VDS#branch)
+plot -VDS#branch
+set hcopypscolor = 1 *White background
+hardcopy fig_Q5_I.eps -VDS#branch
 .endc

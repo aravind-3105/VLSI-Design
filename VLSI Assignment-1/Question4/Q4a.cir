@@ -8,7 +8,7 @@ Series combination of two transistors
 VDS D1 gnd 0
 VGS G gnd 1.8V
 
-M1 D1 G D2 D2 CMOSN W={width_N} L={2*LAMBDA} 
+M1 D1 G D2 gnd CMOSN W={width_N} L={2*LAMBDA} 
 + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
 + AD={5*width_N*LAMBDA}
 
