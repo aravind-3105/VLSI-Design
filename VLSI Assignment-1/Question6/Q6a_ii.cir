@@ -8,18 +8,15 @@ VLSI Assignment Question 6aii
 
 Vdd	 vdd gnd 'SUPPLY'
 vin x gnd 0
-* vin x 0 pulse 0 0 0ns 0 0 2ns 2ns
 
 M1      x       vdd       z     gnd  CMOSN   W={width_N}   L={LAMBDA}
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} 
++PD={10*LAMBDA+2*width_N}
 
 Cout z gnd 100f
 
 .ic v(z)= 1.8 
 .tran 0.001n 2n
-
-
 
 .control
 set hcopypscolor = 1 *White background for saving plots
@@ -28,10 +25,7 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 
 
 run
-*plot v(a)
-*plot v(b)
 plot  v(z)
-
 hardcopy fig_Q6a_ii.eps v(z)
 .endc
 

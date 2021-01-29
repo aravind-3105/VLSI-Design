@@ -22,10 +22,19 @@ set color0=white ** color0 is used to set the background of the plot (manual sec
 set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
 
 run
-let x = ln(-VDS#branch)
+let x = (-VDS#branch)
 set curplottitle="Id vs Vgs Characteristics"
 plot x 
 
-hardcopy fig_Q2b.eps ln(-VDS#branch)
+let y = sqrt(-VDS#branch)
+set curplottitle="sqrt(Id) vs Vgs Characteristics"
+plot y 
+
+let z = deriv(sqrt(-VDS#branch))/deriv(V(G))
+set curplottitle="First Derivative Characteristics of sqrt(Id)"
+plot z
+
+
+hardcopy fig_Q2b.eps (-VDS#branch) sqrt(-VDS#branch) deriv(sqrt(-VDS#branch))/deriv(V(G))
 .endc
 

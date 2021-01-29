@@ -22,6 +22,7 @@ set color0=white ** color0 is used to set the background of the plot (manual sec
 set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
 
 run
+set curplottitle="Case 3"
 plot -VDS#branch
 set hcopypscolor = 1 *White background
 hardcopy fig_Q5_III.eps -VDS#branch

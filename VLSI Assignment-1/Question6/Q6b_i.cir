@@ -1,7 +1,7 @@
 VLSI Assignment Question 6aii
 * Answers to question 6a (ii)
 .include TSMC_180nm.txt
-.param SUPPLY=-2.8V
+.param SUPPLY=-1.8V
 .param LAMBDA=0.09u
 .param width_P=20*LAMBDA
 .global gnd vdd
@@ -29,9 +29,9 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 run
 *plot v(a)
 *plot v(b)
-plot  v(z)
+plot  v(x) v(z)
 
-hardcopy fig_Q6b_i.eps v(z)
+hardcopy fig_Q6b_i.eps v(x) v(z)
 .endc
 
 

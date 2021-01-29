@@ -5,17 +5,17 @@ Series combination of two transistors
 .param width_N=20*LAMBDA
 .global gnd vdd
 
-VDS D gnd 0
+VDS D gnd 1.8V
 VGS G gnd 1.8V
-
+* MOSFET DELCARATION
 M1 D G gnd gnd CMOSN W={width_N} L={4*LAMBDA} 
 + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
 + AD={5*width_N*LAMBDA}
 
-
+* Performing DC Sweep
 .dc VDS 0 3 0.01
 
-
+* Control for plots
 .control
 set hcopypscolor = 1 *White background for saving plots
 set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
@@ -23,7 +23,7 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 
 run
 let x = (-VDS#branch)
-set curplottitle="Id vs Vds Characteristics"
+set curplottitle="Q4b Id vs Vds Characteristics"
 plot x 
 
 hardcopy fig_Q4b.eps (-VDS#branch)

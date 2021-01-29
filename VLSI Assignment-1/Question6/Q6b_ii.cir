@@ -1,24 +1,23 @@
-VLSI Assignment Question 6aii
-* Answers to question 6a (ii)
+VLSI Assignment Question 6bii
+* Answers to question 6b (ii)
 .include TSMC_180nm.txt
-.param SUPPLY=-2.8V
+.param SUPPLY=-1V
 .param LAMBDA=0.09u
 .param width_P=20*LAMBDA
 .global gnd vdd
 
-Vdd	 vdd gnd 'SUPPLY'
+Vdd	 y gnd 0V
 vin x gnd 0V
 
-M1 z vdd x x CMOSP W={width_P} L={2*LAMBDA} +
+M1 x y z supply CMOSP W={width_P} L={2*LAMBDA} +
 AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P}
 AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 
 Cout z gnd 100f
 
+.tran 0.001n 100n
 .ic v(z)= 1.8
-.tran 0.001n 5n
-
-
+.ic v(y) = 1.8
 
 .control
 set hcopypscolor = 1 *White background for saving plots

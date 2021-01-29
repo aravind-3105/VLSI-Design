@@ -1,24 +1,22 @@
-VLSI Assignment Question 6a
-* Answers to question 6a
+VLSI Assignment Question 6ai
+* Answers to question 6ai
 .include TSMC_180nm.txt
-.param SUPPLY=2.5
+.param SUPPLY=2.2
 .param LAMBDA=0.18u
 .param width_N=10*LAMBDA
 .global gnd vdd
 
 Vdd	 vdd gnd 'SUPPLY'
-vin x 0 pulse 0 1.8 0ns 10ns 10ns 6000ns 600ns
+vin x 0 pulse 0 1.8 0ns 10ns 10ns 6000ns 6000ns
 
 M1      x       vdd       z     gnd  CMOSN   W={width_N}   L={LAMBDA}
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} 
++ PD={10*LAMBDA+2*width_N}
 
 Cout z gnd 100f
 
 .ic v(z)= 0 
-.tran 0.1n 600n
-
-
+.tran 0.1n 6000n
 
 .control
 set hcopypscolor = 1 *White background for saving plots
@@ -27,10 +25,7 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 
 
 run
-*plot v(a)
-*plot v(b)
 plot  v(x) v(z)
-
 hardcopy fig_Q6_i.eps v(x)v(z)
 .endc
 

@@ -3,18 +3,18 @@ VLSI Assignment Question 3iii
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
 .param LAMBDA=0.09u
-.param width_N={20*LAMBDA}
+.param width_P={20*LAMBDA}
 .global gnd vdd
 
 VGS G gnd 0
 VDS D gnd 1.8V
-VBS B gnd -0.9V
+VBS B D -900mV
 
-M1 D G gnd B CMOSP W={width_N} L={2*LAMBDA} 
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
-+ AD={5*width_N*LAMBDA}
+M1 D G gnd B CMOSP W={width_P} L={2*LAMBDA} 
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P}
++ AD={5*width_P*LAMBDA}
 
-.dc VGS 0 1.8 0.01
+.dc VGS 0 1.8 0.001
 
 
 .control
@@ -27,5 +27,13 @@ let x = (-VDS#branch)
 set curplottitle="Id vs Vgs Characteristics"
 plot x 
 
-hardcopy fig_Q3iiiPMOS.eps (-VDS#branch)
+let y = sqrt(-VDS#branch)
+set curplottitle="sqrt(Id) vs Vgs Characteristics"
+plot y
+
+let z = deriv(sqrt(-VDS#branch))/deriv(V(G))
+set curplottitle="First derivative Characteristics"
+plot z
+
+hardcopy fig_Q3iiiPMOS.eps (-VDS#branch) sqrt(-VDS#branch) deriv(sqrt(-VDS#branch))/deriv(V(G))
 .endc
