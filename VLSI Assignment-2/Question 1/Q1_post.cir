@@ -1,0 +1,29 @@
+Inverter
+.include TSMC_180nm.txt
+.
+.param SUPPLY=1.8
+.option scale=0.09u
+.global gnd vdd
+
+Vdd vdd gnd 'SUPPLY'
+vin in gnd pulse 0 1.8 0ns 1ns 1ns 10ns 20ns
+
+M1000 out in vdd w_n8_n5# CMOSP w=8 l=2
++  ad=40 pd=26 as=40 ps=26
+M1001 out in gnd Gnd CMOSN w=4 l=2
++  ad=20 pd=18 as=20 ps=18
+
+Cout out gnd 100f
+.tran 0.1n 200n
+
+.control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+run 
+plot v(out) v(in)
+set hcopypscolor = 1
+hardcopy Inverter_post.eps v(in) v(out)
+.endc
+
+.end
