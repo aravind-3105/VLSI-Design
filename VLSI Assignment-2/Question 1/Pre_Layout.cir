@@ -1,13 +1,13 @@
-VLSI Assignment Question 7a
-* Answers to question 7a
+VLSI Assignment Question 1
+* Answers to question 1
 .include TSMC_180nm.txt
-.param SUPPLY=5
-.param LAMBDA=0.9u
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
 .param width_N=20*LAMBDA
 .param width_P=2.5*width_N
 .global gnd vdd
 
-Vdd vdd gnd 5V
+Vdd vdd gnd 1.8V
 vin x 0 0V 
 
 M1      y       x       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
@@ -24,7 +24,7 @@ M4      z       y       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
 
 Cout z gnd 100f
 
-.dc vin 0 5 0.0001
+.dc vin 0 1.8 0.0001
 
 
 
@@ -39,7 +39,7 @@ run
 *plot v(b)
 plot  v(y) v(z)
 
-hardcopy fig_Q7a.eps v(y) v(z)
+hardcopy fig_Q1.eps v(y) v(z)
 .endc
 
 

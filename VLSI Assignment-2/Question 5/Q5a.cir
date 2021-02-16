@@ -1,0 +1,56 @@
+VLSI Assignment Question 1
+* Answers to question 1
+.include TSMC_180nm.txt
+.param SUPPLY=1
+.param LAMBDA=0.09u
+.param width_N=10*LAMBDA
+.param width_P=2.5*width_N
+.global gnd vdd
+
+Vdd vdd gnd 1V
+vin x 0 pulse 0 1.8 0ns 100ps 100ps 9.9ns 20ns
+
+M1      b       a       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+M2      b       a       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M3      c       b       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+M4      c       b       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M5      a       c       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+M6      a       c       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+
+Cout b gnd 1f
+Cout c gnd 1f
+Cout a gnd 1f
+
+.ic v(b)= 1V
+.tran 0.001n 10n
+
+
+
+.control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+
+
+run
+*plot v(a)
+*plot v(b)
+plot  v(a) v(b) v(c)
+
+hardcopy fig_Q5a.eps v(a) v(b) v(c)
+.endc
+
+
+
