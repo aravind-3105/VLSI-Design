@@ -22,6 +22,7 @@ VLSI Assignment Question 4c
 
 Vdd vdd gnd 1.8V
 vin a 0 pwl (0 0V 0.5ns 1.8V 1.1ns 1.8V 1.5ns0V 10ns 0V)
+VDSP vdd d 0V
 
 * First Inverter
 M1      b       a       gnd     gnd  CMOSN   W={width_N1}   L={2*LAMBDA}
@@ -62,36 +63,15 @@ Cout f gnd 1pf
 .tran 10p 5n
 
 
-** MEASURING DELAYS
-* Node C
-.measure tran tpdrC
-+ TRIG v(c) VAL='SUPPLY/2' FALL=1
-+ TARG v(d) VAL='SUPPLY/2' RISE=1
-
-.measure tran tpdfC
-+ TRIG v(c) VAL='SUPPLY/2' RISE=1
-+ TARG v(d) VAL='SUPPLY/2' FALL=1
-
-.measure tran tpdC param='(tpdrC+tpdfC)/2' goal=0
-
-* Node D
-.measure tran tpdrD
-+ TRIG v(d) VAL='SUPPLY/2' FALL=1
-+ TARG v(e) VAL='SUPPLY/2' RISE=1
-
-.measure tran tpdfD
-+ TRIG v(d) VAL='SUPPLY/2' RISE=1
-+ TARG v(e) VAL='SUPPLY/2' FALL=1
-
-.measure tran tpdD param='(tpdrD+tpdfD)/2' goal=0
 
 .control
 set hcopypscolor = 1 *White background for saving plots
 set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
 set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
 run
-plot v(c) v(d) v(e)
-hardcopy fig_Q4c.eps  v(c) v(d) v(e)
+plot v(c) v(d) v(e) 
+plot (-VDSP#branch)
+hardcopy fig_Q4c.eps  v(c) v(d) v(e) (-VDSP#branch)
 .endc
 
 

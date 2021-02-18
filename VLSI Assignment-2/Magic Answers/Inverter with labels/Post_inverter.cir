@@ -1,0 +1,31 @@
+* SPICE3 file created from inverter.ext - technology: scmos
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.global gnd vdd
+
+Vdd vdd gnd 'SUPPLY'
+vin input gnd pulse 0 1.8 0ns 1ns 1ns 10ns 20ns
+.option scale=0.09u
+
+M1000 output input vdd w_n9_0# CMOSP w=50 l=2
++  ad=250 pd=110 as=250 ps=110
+
+M1001 output input gnd gnd CMOSN w=20 l=2
++  ad=100 pd=50 as=100 ps=50
+
+C0 w_n9_0# gnd 1.6fF
+
+.tran 0.01n 80n
+
+
+.control
+set hcopypscoexlor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+run 
+plot v(output) v(input)
+set hcopypscolor = 1
+hardcopy Inverter_post.eps v(input) v(output)
+.endc
+.end

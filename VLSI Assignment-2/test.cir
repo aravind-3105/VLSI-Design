@@ -1,0 +1,36 @@
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param width_N={20*LAMBDA}
+.param width_P={2.5*width_N}
+.global gnd vdd
+
+.subckt inv y x vdd gnd
+M1      y       x       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M2      y       x       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+.ends inv
+
+Vdd	vdd	gnd	'SUPPLY'
+vin a gnd 0
+
+x1 b a vdd gnd inv
+x2 c b vdd gnd inv
+
+.dc vin 0 'SUPPLY' 0.01
+
+
+.control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+
+run
+set curplottitle="Vb vs Va"
+plot v(b)
+
+set curplottitle="d(Vb)/d(Va) vs Va"
+plot deriv(v(b))/deriv(v(a))
+
+.endc

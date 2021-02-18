@@ -1,0 +1,17 @@
+* SPICE3 file created from oscillator.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 m2 m1 vdd inverter_0[0]/w_n9_0# pfet w=50 l=2
++  ad=250 pd=110 as=750 ps=330
+M1001 m2 m1 gnd Gnd nfet w=20 l=2
++  ad=100 pd=50 as=300 ps=150
+M1002 m3 m2 vdd inverter_0[0]/w_n9_0# pfet w=50 l=2
++  ad=250 pd=110 as=0 ps=0
+M1003 m3 m2 gnd Gnd nfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1004 m1 m3 vdd inverter_0[0]/w_n9_0# pfet w=50 l=2
++  ad=250 pd=110 as=0 ps=0
+M1005 m1 m3 gnd Gnd nfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+C0 inverter_0[0]/w_n9_0# gnd! 4.7fF

@@ -35,11 +35,14 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 
 
 run
-*plot v(a)
-*plot v(b)
-plot  v(y) v(z)
+let a = v(y)
+let b = deriv(v(y))/deriv(v(x))
+set curplottitle="V(out)"
+plot  a
+set curplottitle="Slope of VTC d(Vout)/d(Vin) with respect to Vin"
+plot  b
 
-hardcopy fig_Q1.eps v(y) v(z)
+hardcopy fig_Q1.eps v(z) deriv(v(y))/deriv(v(x))
 .endc
 
 

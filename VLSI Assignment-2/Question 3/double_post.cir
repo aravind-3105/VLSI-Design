@@ -20,7 +20,8 @@ M1001 out mid vdd w_0_0# CMOSP w=8 l=2
 M1002 mid in gnd Gnd CMOSN w=4 l=2
 +  ad=20 pd=18 as=40 ps=36
 M1003 out mid gnd Gnd CMOSN w=4 l=2
-+  ad=20 pd=18 as=0 ps=0
++  ad=20 pd=18 as=0 ps=0+
+
 
 *C0 w_0_0# gnd! 1.1fF
 

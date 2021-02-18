@@ -7,35 +7,99 @@ VLSI Assignment Question 1
 .param width_P=2.5*width_N
 .global gnd vdd
 
+
+
+.subckt inverter G      D       vdd     gnd
+M1      G       D       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+M2      G       D       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+.ends inverter  
+
 Vdd vdd gnd 1V
-vin x 0 pulse 0 1.8 0ns 100ps 100ps 9.9ns 20ns
 
-M1      b       a       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+* 1
+ xM1 b a  vdd gnd inverter
+* 2 
+ xM2 c b  vdd gnd inverter
+* 3 
+ xM3 d c  vdd gnd inverter
+* 4
+ xM4 e d  vdd gnd inverter
+* 5
+ xM5 f e  vdd gnd inverter
+* 6
+ xM6 g f  vdd gnd inverter
+* 7
+ xM7 h g  vdd gnd inverter
+* 8
+ xM8 i h  vdd gnd inverter
+* 9
+ xM9 j i  vdd gnd inverter
+* 10
+xM10 k j  vdd gnd inverter
+* 11
+xM11 l k  vdd gnd inverter
+* 12
+xM12 m l  vdd gnd inverter
+* 13
+xM13 n m  vdd gnd inverter
+* 14
+xM14 o n  vdd gnd inverter
+* 15 
+xM15 p o  vdd gnd inverter
+* 16
+xM16 q p  vdd gnd inverter
+* 17
+xM17 r q  vdd gnd inverter
+* 18 
+xM18 s r  vdd gnd inverter
+* 19
+xM19 t s  vdd gnd inverter
+* 20
+xM20 u t  vdd gnd inverter
+* 21 
+xM21 v u  vdd gnd inverter
+* 22
+xM22 w v  vdd gnd inverter
+* 23
+xM23 x w  vdd gnd inverter
+* 24
+xM24 y x  vdd gnd inverter
+* 25
+xM25 z y  vdd gnd inverter
+* 26
+xM26 aa z  vdd gnd inverter
+* 27 
+xM27 bb aa  vdd gnd inverter
+* 28
+xM28 cc bb  vdd gnd inverter
+* 29
+xM29 dd cc  vdd gnd inverter
+* 30 
+xM30 ee dd  vdd gnd inverter
+* 31
+xM31 a ee  vdd gnd inverter
 
-M2      b       a       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
-+ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
-
-M3      c       b       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-
-M4      c       b       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
-+ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
-
-M5      a       c       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
-+ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-
-M6      a       c       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
-+ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 
 
-Cout b gnd 1f
-Cout c gnd 1f
-Cout a gnd 1f
 
-.ic v(b)= 1V
-.tran 0.001n 10n
+.ic v(a)= 1V
+.tran 0.001n 20n
 
+
+
+** MEASURING DELAYS
+.measure tran tpdrA
++ TRIG v(a) VAL='SUPPLY/2' FALL=1
++ TARG v(b) VAL='SUPPLY/2' RISE=1
+
+.measure tran tpdfA
++ TRIG v(a) VAL='SUPPLY/2' RISE=1
++ TARG v(b) VAL='SUPPLY/2' FALL=1
+
+.measure tran tpdA param='(tpdrA+tpdfA)/2' goal=0
 
 
 .control
@@ -47,9 +111,9 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 run
 *plot v(a)
 *plot v(b)
-plot  v(a) v(b) v(c)
+plot  v(a) v(b) v(c) v(ee)
 
-hardcopy fig_Q5a.eps v(a) v(b) v(c)
+hardcopy fig_Q5a.eps v(a) v(b) v(c) v(ee)
 .endc
 
 

@@ -1,0 +1,8 @@
+* SPICE3 file created from inverter_with_label_Q5.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 output input Vdd w_0_0# pfet w=25 l=2
++  ad=125 pd=60 as=125 ps=60
+M1001 output input gnd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=50 ps=30
