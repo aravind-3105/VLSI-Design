@@ -23,7 +23,6 @@ M1005 m1 m3 gnd Gnd CMOSN w=20 l=2
 +  ad=100 pd=50 as=0 ps=0
 C0 vdd gnd 4.7fF
 
-C1 m1 gnd 1f
 .ic v(m1) = 'SUPPLY'
 .tran 0.001n 2n
 

@@ -94,5 +94,7 @@ plot v(c) v(d) v(e)
 hardcopy fig_Q4c.eps  v(c) v(d) v(e)
 .endc
 
+.end
+
 
 

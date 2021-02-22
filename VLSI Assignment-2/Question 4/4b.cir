@@ -63,30 +63,28 @@ Cout f gnd 1pf
 
 ** MEASURING DELAYS (Refer manual section 15.4.5)
 *I3
-.measure tran tpdr
-+ TRIG v(c) VAL=0.18 RISE=1
-+ TARG v(c) VAL=1.62 RISE=1
-
-.measure tran tpdf
-+ TRIG v(c) VAL=1.62 FALL=1
-+ TARG v(c) VAL=0.18 FALL=1
-
-* * .measure tran tpd param='(tpdr+tpdf)/2' goal=0
-* .measure tran diff param='tpdr-tpdf' goal=0
-
-*I4
-.measure tran tpdr
+.measure tran tpdrC
 + TRIG v(d) VAL=0.18 RISE=1
 + TARG v(d) VAL=1.62 RISE=1
 
-.measure tran tpdf
+.measure tran tpdfC
 + TRIG v(d) VAL=1.62 FALL=1
 + TARG v(d) VAL=0.18 FALL=1
 
-* * .measure tran tpd param='(tpdr+tpdf)/2' goal=0
-* .measure tran diff param='tpdr-tpdf' goal=0
+* .measure tran tpdC param='(tpdrC+tpdfC)/2' goal=0
+* .measure tran diffC param='tpdrC-tpdfC' goal=0
 
+*I4
+.measure tran tpdrD
++ TRIG v(e) VAL=0.18 RISE=1
++ TARG v(e) VAL=1.62 RISE=1
 
+.measure tran tpdfD
++ TRIG v(e) VAL=1.62 FALL=1
++ TARG v(e) VAL=0.18 FALL=1
+
+* .measure tran tpd param='(tpdrD+tpdfD)/2' goal=0
+* .measure tran diff param='tpdrD-tpdfD' goal=0
 
 
 .control
@@ -96,11 +94,8 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 
 
 run
-*plot v(a)
-*plot v(b)
-*let x = (-vin#branch)
+set curplottitle="AravindNarayanan-2019102014-Q4-b"
 plot  v(c) v(d)
-*plot x
 hardcopy fig_4b.eps v(c) v(d)
 .endc
 

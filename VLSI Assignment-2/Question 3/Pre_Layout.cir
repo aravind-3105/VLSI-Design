@@ -1,5 +1,5 @@
-VLSI Assignment Question 1
-* Answers to question 1
+VLSI Assignment Question 3S=a
+* Answers to question 3a
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
 .param LAMBDA=0.09u
@@ -37,12 +37,12 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 run
 let a = v(y)
 let b = deriv(v(y))/deriv(v(x))
-set curplottitle="V(out)"
+set curplottitle="AravindNarayanan-2019102014-Q3a-VTC"
 plot  a
-set curplottitle="Slope of VTC d(Vout)/d(Vin) with respect to Vin"
+set curplottitle="AravindNarayanan-2019102014-Q3a-SLOPE"
 plot  b
 
-hardcopy fig_Q1.eps v(z) deriv(v(y))/deriv(v(x))
+hardcopy fig_Q3a.eps v(z) deriv(v(y))/deriv(v(x))
 .endc
 
 

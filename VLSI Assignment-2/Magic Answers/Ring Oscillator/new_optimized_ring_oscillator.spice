@@ -1,75 +1,75 @@
-* SPICE3 file created from optimized_ring_oscillator.ext - technology: scmos
+* SPICE3 file created from new_optimized_ring_oscillator.ext - technology: scmos
 
 .option scale=0.09u
 
-M1000 M31 M1 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
-+  ad=125 pd=60 as=3875 ps=1860
-M1001 M31 M1 gnd Gnd nfet w=10 l=2
-+  ad=50 pd=30 as=1550 ps=930
-M1002 M30 M31 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1000 M1 M31 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
++  ad=125 pd=60 as=2000 ps=960
+M1001 M1 M31 vdd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=800 ps=480
+M1002 M31 M30 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1003 M30 M31 gnd Gnd nfet w=10 l=2
+M1003 M31 M30 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1004 M29 M30 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1004 M30 M29 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1005 M29 M30 gnd Gnd nfet w=10 l=2
+M1005 M30 M29 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1006 M28 M29 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1006 M29 M28 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1007 M28 M29 gnd Gnd nfet w=10 l=2
+M1007 M29 M28 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1008 M27 M28 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1008 M28 M27 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1009 M27 M28 gnd Gnd nfet w=10 l=2
+M1009 M28 M27 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1010 M26 M27 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1010 M27 M26 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1011 M26 M27 gnd Gnd nfet w=10 l=2
+M1011 M27 M26 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1012 M25 M26 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1012 M26 M25 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1013 M25 M26 gnd Gnd nfet w=10 l=2
+M1013 M26 M25 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1014 M24 M25 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1014 M25 M24 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1015 M24 M25 gnd Gnd nfet w=10 l=2
+M1015 M25 M24 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1016 M23 M24 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1016 M24 M23 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1017 M23 M24 gnd Gnd nfet w=10 l=2
+M1017 M24 M23 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1018 M22 M23 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1018 M23 M22 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1019 M22 M23 gnd Gnd nfet w=10 l=2
+M1019 M23 M22 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1020 M21 M22 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1020 M22 M21 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1021 M21 M22 gnd Gnd nfet w=10 l=2
+M1021 M22 M21 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1022 M20 M21 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1022 M21 M20 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1023 M20 M21 gnd Gnd nfet w=10 l=2
+M1023 M21 M20 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1024 M19 M20 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1024 M20 M19 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1025 M19 M20 gnd Gnd nfet w=10 l=2
+M1025 M20 M19 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1026 M18 M19 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1026 M19 M18 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1027 M18 M19 gnd Gnd nfet w=10 l=2
+M1027 M19 M18 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1028 M17 M18 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
+M1028 M18 M17 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
-M1029 M17 M18 gnd Gnd nfet w=10 l=2
+M1029 M18 M17 vdd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1030 m1_360_28# M17 vdd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
-+  ad=250 pd=120 as=0 ps=0
-M1031 m1_360_28# M17 gnd Gnd nfet w=10 l=2
-+  ad=100 pd=60 as=0 ps=0
+M1030 M17 M16 gnd inverter_wo_label_Q5_1[0]/w_0_0# pfet w=25 l=2
++  ad=125 pd=60 as=0 ps=0
+M1031 M17 M16 vdd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=0 ps=0
 M1032 M2 M1 vdd inverter_wo_label_Q5_0[0]/w_0_0# pfet w=25 l=2
-+  ad=125 pd=60 as=0 ps=0
++  ad=125 pd=60 as=1875 ps=900
 M1033 M2 M1 gnd Gnd nfet w=10 l=2
-+  ad=50 pd=30 as=0 ps=0
++  ad=50 pd=30 as=750 ps=450
 M1034 M3 M2 vdd inverter_wo_label_Q5_0[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
 M1035 M3 M2 gnd Gnd nfet w=10 l=2
@@ -122,17 +122,17 @@ M1058 M15 M14 vdd inverter_wo_label_Q5_0[0]/w_0_0# pfet w=25 l=2
 +  ad=125 pd=60 as=0 ps=0
 M1059 M15 M14 gnd Gnd nfet w=10 l=2
 +  ad=50 pd=30 as=0 ps=0
-M1060 m1_360_28# M15 vdd inverter_wo_label_Q5_0[0]/w_0_0# pfet w=25 l=2
-+  ad=0 pd=0 as=0 ps=0
-M1061 m1_360_28# M15 gnd Gnd nfet w=10 l=2
-+  ad=0 pd=0 as=0 ps=0
-C0 inverter_wo_label_Q5_1[0]/w_0_0# vdd 1.2fF
+M1060 M16 M15 vdd inverter_wo_label_Q5_0[0]/w_0_0# pfet w=25 l=2
++  ad=125 pd=60 as=0 ps=0
+M1061 M16 M15 gnd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+C0 gnd inverter_wo_label_Q5_1[0]/w_0_0# 1.2fF
 C1 inverter_wo_label_Q5_0[0]/w_0_0# vdd 1.2fF
-C2 vdd gnd! 2.3fF
+C2 vdd gnd! 3.5fF
 C3 inverter_wo_label_Q5_0[0]/w_0_0# gnd! 13.4fF
-C4 gnd gnd! 3.2fF
-C5 m1_360_28# gnd! 1.1fF
+C4 gnd gnd! 1.8fF
+C5 M16 gnd! 1.3fF
 C6 inverter_wo_label_Q5_1[0]/w_0_0# gnd! 14.3fF
 C7 M30 gnd! 1.1fF
 C8 M31 gnd! 1.2fF
-C9 M1 gnd! 2.1fF
+C9 M1 gnd! 2.3fF

@@ -1,7 +1,7 @@
-VLSI Assignment Question 1
-* Answers to question 1
+VLSI Assignment Question 5
+* Answers to question 5
 .include TSMC_180nm.txt
-.param SUPPLY=1
+.param SUPPLY=1.8V
 .param LAMBDA=0.09u
 .param width_N=10*LAMBDA
 .param width_P=2.5*width_N
@@ -17,7 +17,7 @@ M2      G       D       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
 + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 .ends inverter  
 
-Vdd vdd gnd 1V
+Vdd vdd gnd 1.8V
 
 * 1
  xM1 b a  vdd gnd inverter
@@ -85,8 +85,8 @@ xM31 a ee  vdd gnd inverter
 
 
 
-.ic v(a)= 1V
-.tran 0.001n 20n
+.ic v(a)= 1.8V
+.tran 0.001n 10n
 
 
 
@@ -111,9 +111,10 @@ set color1=black ** color1 is used to set the grid color of the plot (manual sec
 run
 *plot v(a)
 *plot v(b)
-plot  v(a) v(b) v(c) v(ee)
+set curplottitle="AravindNarayanan-2019102014-Q5-a"
+plot  v(a) v(b)
 
-hardcopy fig_Q5a.eps v(a) v(b) v(c) v(ee)
+hardcopy fig_Q5a.eps v(a) v(b)
 .endc
 
 

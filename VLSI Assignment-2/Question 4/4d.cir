@@ -1,5 +1,5 @@
-VLSI Assignment Question 4c
-* Answers to question 4c
+VLSI Assignment Question 4d
+* Answers to question 4d
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
 .param LAMBDA=0.09u
@@ -21,9 +21,9 @@ VLSI Assignment Question 4c
 .global gnd vdd
 
 Vdd vdd gnd 1.8V
-vin a 0 pwl (0 0V 0.5ns 1.8V 1.1ns 1.8V 1.5ns0V 10ns 0V)
-VDSP vdd d 0V
-
+vin a 0 pwl (0 0V 0.5ns 1.8V 1.1ns 1.8V 1.5ns 0V 10ns 0V)
+VDSP sP gnd 1.8V
+VDSN sN gnd 0V
 * First Inverter
 M1      b       a       gnd     gnd  CMOSN   W={width_N1}   L={2*LAMBDA}
 + AS={5*width_N1*LAMBDA} PS={10*LAMBDA+2*width_N1} AD={5*width_N1*LAMBDA} PD={10*LAMBDA+2*width_N1}
@@ -38,10 +38,10 @@ M4      c       b       vdd     vdd  CMOSP   W={width_P2}   L={2*LAMBDA}
 + AS={5*width_P2*LAMBDA} PS={10*LAMBDA+2*width_P2} AD={5*width_P2*LAMBDA} PD={10*LAMBDA+2*width_P2}
 
 * Third Inverter
-M5      d       c       gnd     gnd  CMOSN   W={width_N3}   L={2*LAMBDA}
+M5      d       c      sN     sN  CMOSN   W={width_N3}   L={2*LAMBDA}
 + AS={5*width_N3*LAMBDA} PS={10*LAMBDA+2*width_N3} AD={5*width_N3*LAMBDA} PD={10*LAMBDA+2*width_N3}
 
-M6      d       c       vdd     vdd  CMOSP   W={width_P3}   L={2*LAMBDA}
+M6      d       c      sP     sP  CMOSP   W={width_P3}   L={2*LAMBDA}
 + AS={5*width_P3*LAMBDA} PS={10*LAMBDA+2*width_P3} AD={5*width_P3*LAMBDA} PD={10*LAMBDA+2*width_P3}
 
 * Fourth Inverter
@@ -69,9 +69,13 @@ set hcopypscolor = 1 *White background for saving plots
 set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
 set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
 run
-plot v(c) v(d) v(e) 
-plot (-VDSP#branch)
-hardcopy fig_Q4c.eps  v(c) v(d) v(e) (-VDSP#branch)
+set curplottitle="AravindNarayanan-2019102014-Q4-d&e"
+let IDD = (-VDSP#branch) 
+let ISS = (VDSN#branch)
+plot ISS 
+plot IDD
+plot v(c) v(d) 
+hardcopy fig_Q4c.eps  IDD ISS v(c) v(d)
 .endc
 
 

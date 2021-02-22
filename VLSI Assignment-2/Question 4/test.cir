@@ -1,0 +1,106 @@
+Hello
+.include TSMC_180nm.txt
+.global gnd vdd
+
+.param LAMBDA = 0.09u
+.param SUPPLY = 1.8
+.param width_N = 1.8u
+.param width_P = {2.5*width_N}
+.param length = 0.18u
+
+Vin A 0 pwl (0 0V 0.5ns 1.8V 1.1ns 1.8V 1.5ns 0V 10ns 0V)
+VDI k gnd 'SUPPLY'
+VDG g gnd 0
+VDD inp gnd 'SUPPLY'
+*Vin inp 0 gnd
+
+CL f gnd 1pF
+*Vinp inp d
+*Vout d gnd
+M1 b A inp inp CMOSP W = {width_P} L = {length}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P}
++ AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M2 b A gnd gnd CMOSN W = {width_N} L = {length}
++ AS = {5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD = {5*width_N*LAMBDA} PD = {10*LAMBDA+2*width_N}
+
+M3 C b inp inp CMOSP W = {4*width_P} L = {length}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P}
++ AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M4 C b gnd gnd CMOSN W = {4*width_N} L = {length}
++ AS = {5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD = {5*width_N*LAMBDA} PD = {10*LAMBDA+2*width_N}
+
+M5 d C k k CMOSP W = {16*width_P} L = {length}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P}
++ AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M6 d C g g CMOSN W = {16*width_N} L = {length}
++ AS = {5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD = {5*width_N*LAMBDA} PD = {10*LAMBDA+2*width_N}
+
+M7 e d inp inp CMOSP W = {64*width_P} L = {length}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P}
++ AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M8 e d gnd gnd CMOSN W = {64*width_N} L = {length}
++ AS = {5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD = {5*width_N*LAMBDA} PD = {10*LAMBDA+2*width_N}
+
+M9 f e inp inp CMOSP W = {376*width_P} L = {length}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P}
++ AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M10 f e gnd gnd CMOSN W = {376*width_N} L = {length}
++ AS = {5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N}
++ AD = {5*width_N*LAMBDA} PD = {10*LAMBDA+2*width_N}
+
+.tran 10p 5n
+
+* inverter I3
+
+* .measure tran timeperiod
+* + TRIG v(C) VAL='SUPPLY/2' RISE=1
+* + TARG v(C) VAL='SUPPLY/2' RISE=2
+* .measure tran tpr
+* + TRIG v(C) VAL='SUPPLY/2' FALL=1
+* + TARG v(d) VAL='SUPPLY/2' RISE=1
+
+* .measure tran tpf
+* + TRIG v(C) VAL='SUPPLY/2' RISE=1
+* + TARG v(d) VAL='SUPPLY/2' FALL=1
+
+* .measure tran propD param='(tpr+tpf)/2' goal=0
+* .measure tran diff param='tpr-tpf' goal=0
+
+* * inverter I4
+* .measure tran timeperiod
+* + TRIG v(d) VAL='SUPPLY/2' RISE=1
+* + TARG v(d) VAL='SUPPLY/2' RISE=2
+* .measure tran tpr
+* + TRIG v(d) VAL='SUPPLY/2' FALL=1
+* + TARG v(e) VAL='SUPPLY/2' RISE=1
+
+* .measure tran tpf
+* + TRIG v(d) VAL='SUPPLY/2' RISE=1
+* + TARG v(e) VAL='SUPPLY/2' FALL=1
+
+* .measure tran propD param='(tpr+tpf)/2' goal=0
+* .measure tran diff param='tpr-tpf' goal=0
+
+
+
+
+.control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+run
+let x= -VDI#branch
+let y= VDG#branch
+plot -VDI#branch VDG#branch
+* plot  v(C) v(d)
+hardcopy question4_d.eps -VDI#branch VDG#branch
+.endc
