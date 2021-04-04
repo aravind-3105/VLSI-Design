@@ -1,0 +1,201 @@
+$date
+	Sun Apr  4 01:18:38 2021
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb $end
+$var wire 1 ! swapFlag $end
+$var wire 1 " subFlag $end
+$var wire 1 # loadYR $end
+$var wire 1 $ loadXR $end
+$var wire 1 % ZEQ_Flag $end
+$var wire 16 & Z [15:0] $end
+$var wire 16 ' YR [15:0] $end
+$var wire 16 ( XR [15:0] $end
+$var wire 1 ) SelectXY $end
+$var wire 1 * LEQ_Flag $end
+$var wire 1 + D1 $end
+$var wire 1 , D0 $end
+$var reg 16 - X [15:0] $end
+$var reg 16 . Y [15:0] $end
+$var reg 1 / clk $end
+$var reg 1 0 rst $end
+$scope module CP1 $end
+$var wire 16 1 X [15:0] $end
+$var wire 16 2 Y [15:0] $end
+$var wire 1 / clk $end
+$var wire 1 0 rst $end
+$var wire 1 ! swapFlag $end
+$var wire 1 " subFlag $end
+$var wire 1 # loadYR $end
+$var wire 1 $ loadXR $end
+$var wire 1 % ZEQ_Flag $end
+$var wire 1 ) SelectXY $end
+$var wire 1 * LEQ_Flag $end
+$var wire 1 + D1 $end
+$var wire 1 , D0 $end
+$var reg 16 3 XR [15:0] $end
+$var reg 16 4 YR [15:0] $end
+$var reg 16 5 Z [15:0] $end
+$scope module CP $end
+$var wire 1 % I0 $end
+$var wire 1 * I1 $end
+$var wire 1 $ LoadXR $end
+$var wire 1 # LoadYR $end
+$var wire 1 ) SelectXY $end
+$var wire 1 " Subtract $end
+$var wire 1 ! Swap $end
+$var wire 1 / clk $end
+$var reg 1 , D0 $end
+$var reg 1 + D1 $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 5
+b0 4
+b0 3
+b1111 2
+b11001 1
+10
+0/
+b1111 .
+b11001 -
+0,
+0+
+1*
+1)
+b0 (
+b0 '
+b0 &
+0%
+1$
+1#
+0"
+0!
+$end
+#10000
+0)
+0#
+1"
+1,
+b1111 '
+b1111 4
+1%
+b11001 (
+b11001 3
+1/
+00
+#20000
+0*
+b1010 (
+b1010 3
+0/
+#30000
+1!
+1#
+0"
+1+
+0,
+1/
+#40000
+b1010 '
+b1010 4
+1*
+b1111 (
+b1111 3
+0/
+#50000
+1"
+0!
+0#
+0+
+1,
+1/
+#60000
+0*
+b101 (
+b101 3
+0/
+#70000
+1!
+1#
+0"
+1+
+0,
+1/
+#80000
+b101 '
+b101 4
+1*
+b1010 (
+b1010 3
+0/
+#90000
+1"
+0!
+0#
+0+
+1,
+1/
+#100000
+b101 (
+b101 3
+0/
+#110000
+1/
+#120000
+b101 &
+b101 5
+0%
+0*
+b0 (
+b0 3
+0/
+#130000
+0$
+0"
+1+
+1/
+#140000
+0/
+#150000
+1/
+#160000
+0/
+#170000
+1/
+#180000
+0/
+#190000
+1/
+#200000
+0/
+#210000
+1/
+#220000
+0/
+#230000
+1/
+#240000
+0/
+#250000
+1/
+#260000
+0/
+#270000
+1/
+#280000
+0/
+#290000
+1/
+#300000
+0/
+#310000
+1/

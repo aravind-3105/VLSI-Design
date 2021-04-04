@@ -1,0 +1,33 @@
+* SPICE3 file created from subckt1_with_label.ext - technology: scmos
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.option scale=0.09u
+.global gnd vdd
+
+Vdd	vdd	gnd	'SUPPLY'
+vin_a inp 0 pulse 0 1.8 0ns 100ps 100ps 4.9ns 10ns
+
+
+M1000 out inp vdd w_0_0# CMOSP w=12 l=2
++  ad=60 pd=34 as=60 ps=34
+M1001 out inp gnd gnd CMOSN w=6 l=2
++  ad=30 pd=22 as=30 ps=22
+C1 inp out 0.1fF
+C3 vdd out 0.2fF
+C4 inp gnd 0.1fF
+C7 out gnd 0.1fF
+
+
+.tran 0.1n 100n
+
+
+.control
+set hcopypscolor = 1
+set color0=white
+set color1=black
+
+run
+plot v(inp) v(out)
+set curplottitle= "Aravind Narayanan-2019102014"
+.endc

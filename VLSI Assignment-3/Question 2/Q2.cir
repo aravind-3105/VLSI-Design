@@ -1,0 +1,82 @@
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param width_N={6*LAMBDA}
+* .param width_P={12*LAMBDA}
+.global gnd vdd
+
+Vdd	vdd	gnd	'SUPPLY'
+vin_x1 x1 0 pulse 0 1.8 0ns 100ps 100ps 100ns 200ns
+vin_x2 x2 0 pulse 0 1.8 0ns 100ps 100ps 200n 400ns
+vin_x3 x3 0 pulse 0 1.8 0ns 100ps 100ps 400ns 800ns
+vin_x4 x4 0 pulse 0 1.8 0ns 100ps 100ps 800ns 1600ns
+vin_x11 x1_bar 0 pulse 1.8 0 0ns 100ps 100ps 100ns 200ns
+vin_x22 x2_bar 0 pulse 1.8 0 0ns 100ps 100ps 200n 400ns
+vin_x33 x3_bar 0 pulse 1.8 0 0ns 100ps 100ps 400ns 800ns
+vin_x44 x4_bar 0 pulse 1.8 0 0ns 100ps 100ps 800ns 1600ns
+
+// D    G   
+//Out   Inp 
+* .subckt inv yi xi vdd gnd
+* M1      yi       xi       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
+* + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+* M2      yi       xi       vdd     vdd  CMOSP   W={width_P}   L={2*LAMBDA}
+* + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+* .ends inv
+           //G G_Bar Out Vdd Gnd inp1 inp0
+.subckt MUX2_1 x x_bar y vdd gnd inp1 inp0
+    M1      inp1       x       y     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    M2      y         x_bar   inp0   gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}     
+.ends MUX2_1
+
+
+//Inverters
+//////////////////////////////////////////
+* x_1 x1_bar x1 vdd gnd inv
+* x_2 x2_bar x2 vdd gnd inv
+* x_3 x3_bar x3 vdd gnd inv
+//////////////////////////////////////////
+//Layer1
+/////////////////////////////////////////
+x_11 x3 x3_bar f_11 vdd gnd vdd vdd  MUX2_1
+x_10 x3 x3_bar f_10 vdd gnd vdd x4   MUX2_1
+x_01 x3 x3_bar f_01 vdd gnd vdd x4   MUX2_1
+x_00 x3 x3_bar f_00 vdd gnd x4  gnd  MUX2_1
+//////////////////////////////////////////
+//Layer2
+/////////////////////////////////////////
+x_1111 x2 x2_bar f_1 vdd gnd f_11 f_10  MUX2_1
+x_0000 x2 x2_bar f_0 vdd gnd f_01 f_00  MUX2_1
+//////////////////////////////////////////
+//Layer3
+/////////////////////////////////////////
+x_111 x1 x1_bar f vdd gnd f_1 f_0  MUX2_1
+//////////////////////////////////////////
+* C_out1  f_0   0 0.9uf
+* C_out2  f_1   0 0.9uf
+* C_out3  f_11  0 0.9uf
+* C_out4  f_10  0 0.9uf
+* C_out5  f_01  0 0.9uf
+* C_out6  f_00  0 0.9uf
+C_out7  f       0 0.9pf
+
+.tran 1n 1600n
+
+.control
+set hcopypscolor = 1
+set color0=white
+set color1=black
+
+run
+* plot v(x1) v(x1_bar)
+* plot v(x2) v(x2_bar)
+* plot v(x3) v(x3_bar)
+* plot v(x4)
+* plot v(f_11) v(f_10) v(f_01) v(f_00)
+* plot v(f_1) v(f_0)
+plot v(f) v(x1) v(x2) v(x3) v(x4)
+
+set curplottitle= "Aravind Narayanan-2019102014"
+.endc

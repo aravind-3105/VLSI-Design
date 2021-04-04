@@ -1,0 +1,58 @@
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param width_N={6*LAMBDA}
+.param width_N_out={4*width_N}
+.param width_P_out={8*width_N}
+.global gnd vdd
+
+Vdd	vdd	gnd	'SUPPLY'
+vin_x1 x1     0 pulse 0 1.8 0ns   100ps 100ps  10ns  20ns
+vin_x2 x2     0 pulse 0 1.8 0ns   100ps 100ps  20n   40ns
+vin_x3 x3     0 pulse 0 1.8 0ns   100ps 100ps  40ns  80ns
+vin_x4 x4     0 pulse 0 1.8 0ns   100ps 100ps  80ns  160ns
+vi_x11 x1_bar 0 pulse 1.8 0 100ps 100ps 100ps  10ns  20ns
+vi_x22 x2_bar 0 pulse 1.8 0 100ps 100ps 100ps  20ns  40ns
+vi_x33 x3_bar 0 pulse 1.8 0 100ps 100ps 100ps  40ns  80ns
+vi_x44 x4_bar 0 pulse 1.8 0 100ps 100ps 100ps  80ns  160ns
+
+           //G G_Bar Out Vdd Gnd inp1 inp0
+.subckt MUX2_1 x x_bar y vdd gnd inp1 inp0
+    M1      inp1       x       y     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    M2      y         x_bar   inp0   gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}     
+.ends MUX2_1
+ 
+.subckt inv x y vdd gnd
+M1      y       x       gnd     gnd  CMOSN   W={width_N_out}   L={2*LAMBDA}
++ AS={5*width_N_out*LAMBDA} PS={10*LAMBDA+2*width_N_out} AD={5*width_N_out*LAMBDA} PD={10*LAMBDA+2*width_N_out}
+M2      y       x       vdd     vdd  CMOSP   W={width_P_out}   L={2*LAMBDA}
++ AS={5*width_P_out*LAMBDA} PS={10*LAMBDA+2*width_P_out} AD={5*width_P_out*LAMBDA} PD={10*LAMBDA+2*width_P_out}
+.ends inv
+
+
+//G G_Bar Out Vdd Gnd inp1 inp0
+x_1 x4 x4_bar a vdd gnd vdd gnd  MUX2_1
+x_2 x3 x3_bar b vdd gnd x4   gnd  MUX2_1
+x_3 x3 x3_bar c vdd gnd vdd  x4    MUX2_1
+x_4 x2 x2_bar d vdd gnd c   b    MUX2_1
+x_5 x2 x2_bar e vdd gnd vdd c    MUX2_1
+x_6 x1 x1_bar f vdd gnd e   d    MUX2_1
+x10 f gnd vdd gnd inv
+
+.tran 0.0001n 160n
+
+.measure tran rt
++TRIG v(x1) VAL = 0.9V RISE = 1 TARG v(f) VAL = 0.9V RISE = 1
+.measure tran ft
++TRIG v(x1) VAL = 0.9V FALL = 4 TARG v(f) VAL = 0.9V FALL = 1
+
+.control
+set hcopypscolor = 1
+set color0=white
+set color1=black
+run
+plot v(f) 
+set curplottitle= "Aravind Narayanan-2019102014-Q2"
+.endc

@@ -1,0 +1,89 @@
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param W = {6*LAMBDA}
+//Widths of inverters 
+    //Inverter to obtain A_bar and B_bar
+.param width_P_1={2*W}
+.param width_N_1={W}
+    //NMOS
+.param width_N_S ={W}
+    //Final Inverter
+.param k = 13
+.param width_N={6*W - k*LAMBDA}
+.param width_P={k*LAMBDA}
+.global gnd vdd
+
+Vdd	vdd	gnd	'SUPPLY'
+vin_a a 0 pulse 0 1.8 0ns 100ps 100ps 5ns 10ns
+vin_b b 0 pulse 0 1.8 0ns 100ps 100ps 10ns 20ns
+vin_b b 0 pulse 0 1.8 0ns 100ps 100ps 10ns 20ns
+ven1 s 0 pwl (0 0v 49.9ns 0v 50ns 1.8v 100ns 1.8v)
+ven2 s_bar 0 pwl (0 1.8v 49.9ns 1.8v 50ns 0v 100ns 0v)
+
+// Inverter to obtain A_bar and B_bar
+.subckt inv_1 yi xi B vdd gnd
+M1      yi       xi       gnd     gnd  CMOSN   W={width_N_1}   L={2*LAMBDA}
++ AS={5*width_N_1*LAMBDA} PS={10*LAMBDA+2*width_N_1} AD={5*width_N_1*LAMBDA} PD={10*LAMBDA+2*width_N_1}
+M2      yi       xi       vdd     B  CMOSP   W={width_P_1}   L={2*LAMBDA}
++ AS={5*width_P_1*LAMBDA} PS={10*LAMBDA+2*width_P_1} AD={5*width_P_1*LAMBDA} PD={10*LAMBDA+2*width_P_1}
+.ends inv_1
+// NMOS
+.subckt mos_n yi xi z gnd
+M1      yi       xi       z     gnd  CMOSN   W={width_N_S}   L={2*LAMBDA}
++ AS={5*width_N_S*LAMBDA} PS={10*LAMBDA+2*width_N_S} AD={5*width_N_S*LAMBDA} PD={10*LAMBDA+2*width_N_S}
+.ends mos_n
+// Final inverter
+.subckt inv yi xi bc vdd gnd 
+M1      yi       xi       gnd     gnd  CMOSN   W={width_N}   L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M2      yi       xi       vdd     bc  CMOSP   W={width_P}   L={2*LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+.ends inv
+
+x1 a_bar a ba vdd gnd inv_1
+x2 b_bar b bb vdd gnd inv_1
+x3 a_bar s z   gnd mos_n
+x4 b_bar s_bar z   gnd mos_n
+x5 Y z bc vdd gnd inv  
+
+CA_in a 0 5fF
+CB_in b 0 5fF
+C_out Y 0 10fF
+//Layer-1 INVERTER
+C0 ba vdd 0.6fF
+C1 bb vdd 0.6fF
+C2 bc vdd 0.8fF
+//Layer-2 NMOS has no parastics more than 0.4fF, anything lesser is ignored
+.measure tran tdiff1
++ TRIG v(b)     VAL=0.9 CROSS=1 
++ TARG v(Y) VAL=0.9 CROSS=1
+.measure tran tdiff2
++ TRIG v(b)     VAL=0.9 CROSS=2 
++ TARG v(Y) VAL=0.9 CROSS=2
+
+.measure tran tpd_I4 param='(tdiff1+tdiff2)/2' goal=0
+
+.tran 0.1n 100n
+
+.control
+set hcopypscolor = 1
+set color0=white
+set color1=black
+
+run
+plot v(s)
+set curplottitle= "Aravind Narayanan-2019102014-Q1"
+plot v(s_bar)
+set curplottitle= "Aravind Narayanan-2019102014-Q1"
+plot v(a)
+set curplottitle= "Aravind Narayanan-2019102014-Q1" 
+plot v(b) 
+set curplottitle= "Aravind Narayanan-2019102014-Q1"
+plot v(Y)
+set curplottitle= "Aravind Narayanan-2019102014-Q1"
+plot v(a) v(Y)
+set curplottitle= "Aravind Narayanan-2019102014-Q1"
+plot v(b) v(Y)
+set curplottitle= "Aravind Narayanan-2019102014-Q1"
+.endc

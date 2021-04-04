@@ -1,0 +1,9 @@
+* SPICE3 file created from subckt1_with_label.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 out inp vdd w_0_0# pfet w=12 l=2
++  ad=60 pd=34 as=60 ps=34
+M1001 out inp gnd Gnd nfet w=6 l=2
++  ad=30 pd=22 as=30 ps=22
+C0 w_0_0# gnd! 0.6fF

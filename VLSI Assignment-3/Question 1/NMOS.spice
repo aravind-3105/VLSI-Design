@@ -1,0 +1,7 @@
+* SPICE3 file created from NMOS.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 DRAIN GATE SOURCE Gnd nfet w=6 l=2
++  ad=30 pd=22 as=30 ps=22
+C0 SOURCE gnd! 0.1fF
